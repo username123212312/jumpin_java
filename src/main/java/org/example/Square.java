@@ -1,9 +1,5 @@
 package org.example;
 
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
 
 public class Square {
     private int x;
@@ -19,7 +15,7 @@ public class Square {
     }
 
     public String getType() {
-        return this.type;
+        return type;
     }
 
     public void setType(String type) {
@@ -27,7 +23,7 @@ public class Square {
     }
 
     public String getPrevType() {
-        return this.prev_type;
+        return prev_type;
     }
 
     public void setPrevType(String prev_type) {
@@ -35,11 +31,11 @@ public class Square {
     }
 
     public int getX() {
-        return this.x;
+        return x;
     }
 
     public int getY() {
-        return this.y;
+        return y;
     }
 
     public boolean isType(String t) {
@@ -47,27 +43,16 @@ public class Square {
     }
 
     public String getSymbol() {
-        switch (this.type) {
-            case "Rabbit" -> {
-                return "\ud83d\udc30";
-            }
-            case "Fox" -> {
-                return "\ud83e\udd8a";
-            }
-            case "Mushroom" -> {
-                return "\ud83c\udf44";
-            }
-            case "Hole" -> {
-                return "\ud83d\udd73️";
-            }
-            default -> {
-                return "⬜";
-            }
+        switch (type) {
+            case "Rabbit": return "R";
+            case "Fox": return "F";
+            case "Mushroom": return "M";
+            case "Hole": return "H";
+            default: return "E";
         }
     }
-
+    @Override
     public String toString() {
-        return this.getSymbol();
+        return getSymbol();
     }
 }
-
