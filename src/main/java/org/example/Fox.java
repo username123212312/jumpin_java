@@ -3,10 +3,11 @@ public class Fox extends Entity {
     private int y2;
     private String direction; // "horizontal" or "vertical"
 
-    public Fox(int y1, int x1, int y2, int x2) {
-        super(y1, x1);
-        this.y2 = y2;
+    public Fox(int x, int y, int x2, int y2) {
+        super(x, y);
         this.x2 = x2;
+        this.y2 = y2;
+        
 
         if (y1 == y2) {
             this.direction = "horizontal";

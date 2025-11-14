@@ -31,9 +31,8 @@ public class Entity {
         if (this == o) return true;
         if (!(o instanceof Entity)) return false;
         Entity entity = (Entity) o;
-        return    x == entity.x
-              &&  y == entity.y
-              && Objects.equals(getX(), entity.getX());
+        return x == entity.x && y == entity.y && this.getClass() == entity.getClass();
+
     }
 
     //hashCode
