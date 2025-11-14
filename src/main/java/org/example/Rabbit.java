@@ -7,6 +7,7 @@ package org.example;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Rabbit {
     private int row;
@@ -42,6 +43,20 @@ public class Rabbit {
         }
 
         return rabbits;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Rabbit rabbit = (Rabbit) o;
+        return row == rabbit.row && col == rabbit.col;
+    }
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(row, col);
     }
 
     public String toString() {
