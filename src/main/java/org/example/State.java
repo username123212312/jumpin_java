@@ -1,9 +1,11 @@
+package org.example;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class State {
 
-    private Square[][] board;  
+    private Square[][] board;
 
     public State(Square[][] board) {
         this.board = new Square[5][5];
@@ -66,11 +68,11 @@ public class State {
     }
 
     private Entity copyEntity(Entity e) {
-        if (e instanceof Rabbit) return new Rabbit();
-        if (e instanceof Hole) return new Hole();
-        if (e instanceof Mushroom) return new Mushroom();
-        if (e instanceof Empty) return new Empty();
-        if (e instanceof Fox f) return new Fox(f.getDirection());
+        if (e instanceof Rabbit) return new Rabbit(e.getX(), e.getY());
+        if (e instanceof Hole) return new Hole(e.getX(), e.getY());
+        if (e instanceof Mushroom) return new Mushroom(e.getX(), e.getY());
+        if (e instanceof Empty) return new Empty(e.getX(), e.getY());
+        if (e instanceof Fox f) return new Fox(f.getX(), f.getY(), f.getX2(), f.getY2());
 
         return null;
     }
@@ -85,20 +87,20 @@ public class State {
     }
 
     public static State initialState() {
-    Square[][] board = new Square[5][5];
+        Square[][] board = new Square[5][5];
 
-    for (int i = 0; i < 5; i++) {
-        for (int j = 0; j < 5; j++) {
-            board[i][j] = new Square(i, j, new Empty());
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                board[i][j] = new Square(i, j, new Empty(j, i));
+            }
         }
+
+        board[2][2].setEntity(new Rabbit(2, 2));
+        board[2][3].setEntity(new Mushroom(3, 2));
+        board[2][4].setEntity(new Mushroom(4, 2));
+
+
+        return new State(board);
     }
-
-    board[2][2].setEntity(new Rabbit());
-    board[2][3].setEntity(new Mushroom());
-    board[2][4].setEntity(new Mushroom());
-
-
-    return new State(board);
-}
 
 }

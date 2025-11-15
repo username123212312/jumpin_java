@@ -2,7 +2,7 @@ package org.example;
 
 
 class Hole extends Entity{
-    public Hole(int y, int x) {
-        super(y, x);
+    public Hole(int x, int y) {
+        super(x, y);
     }
 }

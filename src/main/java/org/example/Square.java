@@ -22,7 +22,7 @@ public class Square {
     }
 
     public boolean isEmpty() {
-         return entity instanceof Empty;
+        return entity instanceof Empty;
     }
 
     @Override
