@@ -1,3 +1,8 @@
-public class Hole extends Entity {
-   
+package org.example;
+
+
+class Hole extends Entity{
+    public Hole(int y, int x) {
+        super(y, x);
+    }
 }
