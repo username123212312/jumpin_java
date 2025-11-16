@@ -4,7 +4,6 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-
         State state = State.initialState();
         System.out.println("Initial Board:");
         state.printBoard();
@@ -17,8 +16,7 @@ public class Main {
         for (Action a : actions) {
             System.out.println("Move " + a.getEntityType() +
                     " from (" + a.getOldX() + "," + a.getOldY() + ")" +
-                    " to (" + a.getNewX() + "," + a.getNewY() + ") " +
-                    "direction: " + a.getDirection());
+                    " to (" + a.getNewX() + "," + a.getNewY() + ")");
         }
     }
 }

@@ -1,6 +1,5 @@
 package org.example;
 
-
 public class Square {
 
     private Entity entity;

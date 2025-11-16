@@ -94,11 +94,16 @@ public class State {
                 board[i][j] = new Square(i, j, new Empty(j, i));
             }
         }
-
-        board[2][2].setEntity(new Rabbit(2, 2));
-        board[2][3].setEntity(new Mushroom(3, 2));
-        board[2][4].setEntity(new Mushroom(4, 2));
-
+        board[0][1].setEntity(new Rabbit(0, 1));
+        board[0][2].setEntity(new Mushroom(0, 2));
+        board[0][3].setEntity(new Hole(0,3));
+        board[2][1].setEntity(new Rabbit(2, 1));
+        board[2][2].setEntity(new Mushroom(2, 2));
+        board[2][3].setEntity(new Mushroom(2, 3));
+        board[2][4].setEntity(new Hole(2,4));
+        board[1][1].setEntity(new Hole(2,1));
+        board[1][2].setEntity(new Fox(1,2,1,3));
+        board[1][3].setEntity(board[1][2].getEntity());
 
         return new State(board);
     }
