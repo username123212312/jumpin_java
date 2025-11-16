@@ -1,14 +1,12 @@
 package org.example;
 
-import java.util.ArrayList;
 import java.util.List;
-
 
 public class Main {
     public static void main(String[] args) {
 
         State state = State.initialState();
-        System.out.println("Initial Board :");
+        System.out.println("Initial Board:");
         state.printBoard();
 
         Node node = new Node(state, null, null);
@@ -19,9 +17,8 @@ public class Main {
         for (Action a : actions) {
             System.out.println("Move " + a.getEntityType() +
                     " from (" + a.getOldX() + "," + a.getOldY() + ")" +
-                    " to (" + a.getNewX() + "," + a.getNewY() + ")");
+                    " to (" + a.getNewX() + "," + a.getNewY() + ") " +
+                    "direction: " + a.getDirection());
         }
-
-
     }
 }
