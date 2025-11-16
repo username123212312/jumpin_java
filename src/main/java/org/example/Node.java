@@ -53,16 +53,35 @@ public class Node {
         return (fox.getX() == x && fox.getY() == y) || (fox.getX2() == x && fox.getY2() == y);
     }
 
-    public List<Action> getPossibleActions(State state) {
+    public List<Node> getNextStates() {
+        List<Node> nextStates = new ArrayList<>();
+        List<Action> possibleActions = getPossibleActions();
+        for (Action action : possibleActions) {
+            Node node = deepCopy();
+            node.applyAction(action);
+            nextStates.add(node);
+        }
+        return nextStates;
+    }
+
+    public Node deepCopy() {
+        return this;
+    }
+
+    public void applyAction(Action action) {
+
+    }
+
+    public List<Action> getPossibleActions() {
         List<Action> actions = new ArrayList<>();
 
         // ----------Rabbit  ----------
-        for (Rabbit rabbit : state.getRabbits()) {
+        for (Rabbit rabbit : this.state.getRabbits()) {
             int rx = rabbit.getX();
             int ry = rabbit.getY();
 
-            int[][] directions = { {-1,0}, {1,0}, {0,-1}, {0,1} }; // up, down, left, right
-            String[] dirNames = { "up", "down", "left", "right" };
+            int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}}; // up, down, left, right
+            String[] dirNames = {"up", "down", "left", "right"};
 
             for (int d = 0; d < 4; d++) {
                 int dx = directions[d][0];
@@ -74,12 +93,12 @@ public class Node {
 
                 if (!isInside(cx, cy)) continue;
 
-                Entity firstCell = state.getSquare(cx,cy).getEntity();
+                Entity firstCell = this.state.getSquare(cx, cy).getEntity();
                 if (firstCell instanceof Empty || firstCell instanceof Hole) continue;
 
-                while (isInside(cx, cy) && !state.getSquare(cx,cy).isEmpty() 
-                        && !(state.getSquare(cx,cy).getEntity() instanceof Hole)) {
-                    Entity e = state.getSquare(cx,cy).getEntity();
+                while (isInside(cx, cy) && !this.state.getSquare(cx, cy).isEmpty()
+                        && !(this.state.getSquare(cx, cy).getEntity() instanceof Hole)) {
+                    Entity e = this.state.getSquare(cx, cy).getEntity();
                     if (!(e instanceof Rabbit || e instanceof Fox || e instanceof Mushroom)) break;
                     cx += dx;
                     cy += dy;
@@ -87,7 +106,7 @@ public class Node {
 
                 if (!isInside(cx, cy)) continue;
 
-                Entity landing = state.getSquare(cx,cy).getEntity();
+                Entity landing = this.state.getSquare(cx, cy).getEntity();
                 if (landing instanceof Empty || (landing instanceof Hole && !((Hole) landing).isOccupied())) {
                     actions.add(new Action(rx, ry, cx, cy, "Rabbit", dirName));
                 }
@@ -95,10 +114,10 @@ public class Node {
         }
 
         // ---------- Fox ----------
-        for (Fox fox : state.getFoxes()) {
+        for (Fox fox : this.state.getFoxes()) {
             int[][] directions = fox.getDirection().equals("vertical") ?
-                                 new int[][] { {-1,0}, {1,0} } :   // up, down
-                                 new int[][] { {0,-1}, {0,1} };    // left, right
+                    new int[][]{{-1, 0}, {1, 0}} :   // up, down
+                    new int[][]{{0, -1}, {0, 1}};    // left, right
 
             for (int[] dir : directions) {
                 int dx = dir[0];
@@ -109,13 +128,13 @@ public class Node {
                 int newX2 = fox.getX2() + dx;
                 int newY2 = fox.getY2() + dy;
 
-                if (isInside(newX1,newY1) && isInside(newX2,newY2) &&
-                    (state.getSquare(newX1,newY1).isEmpty() || isPartOfFox(fox,newX1,newY1)) &&
-                    (state.getSquare(newX2,newY2).isEmpty() || isPartOfFox(fox,newX2,newY2))) {
+                if (isInside(newX1, newY1) && isInside(newX2, newY2) &&
+                        (this.state.getSquare(newX1, newY1).isEmpty() || isPartOfFox(fox, newX1, newY1)) &&
+                        (this.state.getSquare(newX2, newY2).isEmpty() || isPartOfFox(fox, newX2, newY2))) {
 
                     String dirName = fox.getDirection().equals("vertical") ?
-                                     (dx == -1 ? "up" : "down") :
-                                     (dy == -1 ? "left" : "right");
+                            (dx == -1 ? "up" : "down") :
+                            (dy == -1 ? "left" : "right");
 
                     actions.add(new Action(fox.getX(), fox.getY(), newX1, newY1, "Fox", dirName));
                 }
