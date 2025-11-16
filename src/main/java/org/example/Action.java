@@ -1,6 +1,3 @@
-package org.example;
-
-
 public class Action {
 
     private int oldX;
