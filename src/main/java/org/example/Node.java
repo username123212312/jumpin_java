@@ -1,4 +1,3 @@
-package org.example;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,57 +49,61 @@ public class Node {
     }
 
     public List<Action> getPossibleActions(State state) {
-        List<Action> actions = new ArrayList<>();
-        List<Rabbit> rabbits = state.getRabbits();
+    List<Action> actions = new ArrayList<>();
+    List<Rabbit> rabbits = state.getRabbits();
 
-        int[][] directions = {
-                {-1, 0},
-                {1, 0},
-                {0, -1},
-                {0, 1}
-        };
-        String[] dirNames = {"up", "down", "left", "right"};
+    int[][] directions = {
+        {-1, 0}, // up
+        {1, 0},  // down
+        {0, -1}, // left
+        {0, 1}   // right
+    };
+    String[] dirNames = {"up", "down", "left", "right"};
 
-        for (Rabbit rabbit : rabbits) {
-            int rx = -1, ry = -1;
-            for (int i = 0; i < 5; i++) {
-                for (int j = 0; j < 5; j++) {
-                    if (state.getSquare(i, j).getEntity() == rabbit) {
-                        rx = i;
-                        ry = j;
-                        break;
-                    }
+    for (Rabbit rabbit : rabbits) {
+        int rx = -1, ry = -1;
+
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                if (state.getSquare(i, j).getEntity() == rabbit) {
+                    rx = i;
+                    ry = j;
+                    break;
                 }
-                if (rx != -1) break;
             }
-            if (rx == -1) continue;
-            for (int d = 0; d < 4; d++) {
-                int dx = directions[d][0];
-                int dy = directions[d][1];
-                String dirName = dirNames[d];
+            if (rx != -1) break;
+        }
+        if (rx == -1) continue;
 
-                int cx = rx + dx;
-                int cy = ry + dy;
+        for (int d = 0; d < 4; d++) {
+            int dx = directions[d][0];
+            int dy = directions[d][1];
+            String dirName = dirNames[d];
 
-                if (!isInside(cx, cy) || state.getSquare(cx, cy).isEmpty() || state.getSquare(cx, cy).getEntity() instanceof Hole)
-                    continue;
+            int cx = rx + dx;
+            int cy = ry + dy;
 
-                while (isInside(cx, cy) && !state.getSquare(cx, cy).isEmpty() && !(state.getSquare(cx, cy).getEntity() instanceof Hole)) {
-                    cx += dx;
-                    cy += dy;
-                }
+            if (!isInside(cx, cy) || state.getSquare(cx, cy).isEmpty() || state.getSquare(cx, cy).getEntity() instanceof Hole)
+                continue;
 
-                if (!isInside(cx, cy)) continue;
+            while (isInside(cx, cy) && !state.getSquare(cx, cy).isEmpty() && !(state.getSquare(cx, cy).getEntity() instanceof Hole)) {
+                cx += dx;
+                cy += dy;
+            }
 
-                Entity landing = state.getSquare(cx, cy).getEntity();
-                if (landing instanceof Empty || landing instanceof Hole) {
-                    actions.add(new Action(rx, ry, cx, cy, "Rabbit", dirName));
-                }
+            if (!isInside(cx, cy)) continue;
+
+            Entity landing = state.getSquare(cx, cy).getEntity();
+            
+            if (landing instanceof Empty || (landing instanceof Hole && !((Hole) landing).isOccupied())) {
+                actions.add(new Action(rx, ry, cx, cy, "Rabbit", dirName));
             }
         }
-
-        return actions;
     }
+
+    return actions;
+}
+
 
 }
 
