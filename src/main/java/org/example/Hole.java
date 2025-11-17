@@ -8,6 +8,11 @@ public class Hole extends Entity {
         this.occupant = null;    
     }
 
+    @Override
+    public Entity deepCopy() {
+        return new Hole(getX(),getY());
+    }
+
     public void setOccupant(Rabbit rabbit) {
         this.occupant = rabbit;
     }

@@ -65,7 +65,7 @@ public class Node {
     }
 
     public Node deepCopy() {
-        return this;
+        return new Node(state.deepCopy(), parent.deepCopy(), action.deepCopy());
     }
 
     public void applyAction(Action action) {

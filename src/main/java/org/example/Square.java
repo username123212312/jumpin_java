@@ -12,6 +12,10 @@ public class Square {
         this.entity = entity;
     }
 
+    public Square deepCopy() {
+        return new Square(this.x, this.y, this.entity.deepCopy());
+    }
+
     public Entity getEntity() {
         return entity;
     }

@@ -20,6 +20,18 @@ public class State {
         }
     }
 
+    public State deepCopy() {
+        Square[][] newBoard = new Square[5][5];
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+//                Entity oldEntity = board[i][j].getEntity();
+//                Entity newEntity = copyEntity(oldEntity);
+                newBoard[i][j] = board[i][j].deepCopy();
+            }
+        }
+        return new State(newBoard);
+    }
+
     public Square getSquare(int x, int y) {
         return board[x][y];
     }
@@ -69,11 +81,11 @@ public class State {
     }
 
     private Entity copyEntity(Entity e) {
-        if (e instanceof Rabbit) return new Rabbit(e.getX(), e.getY());
-        if (e instanceof Hole) return new Hole(e.getX(), e.getY());
-        if (e instanceof Mushroom) return new Mushroom(e.getX(), e.getY());
-        if (e instanceof Empty) return new Empty(e.getX(), e.getY());
-        if (e instanceof Fox f) return new Fox(f.getX(), f.getY(), f.getX2(), f.getY2());
+        if (e instanceof Rabbit) return e.deepCopy();
+        if (e instanceof Hole) return e.deepCopy();
+        if (e instanceof Mushroom) return e.deepCopy();
+        if (e instanceof Empty) return e.deepCopy();
+        if (e instanceof Fox f) return e.deepCopy();
 
         return null;
     }

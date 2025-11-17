@@ -41,4 +41,9 @@ public class Fox extends Entity {
     public String getDirection() {
         return direction;
     }
+
+    @Override
+    public Entity deepCopy() {
+        return new Fox(getX(),getY(),getX2(),getY2());
+    }
 }

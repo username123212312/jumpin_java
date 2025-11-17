@@ -3,7 +3,7 @@ package org.example;
 import java.util.Objects;
 
 
-public class Entity {
+public abstract class Entity {
     private int x;
     private int y;
 
@@ -11,6 +11,7 @@ public class Entity {
         this.x = x;
         this.y = y;
     }
+    public abstract Entity deepCopy();
 
     public int getX() {
         return x;

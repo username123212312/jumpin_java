@@ -20,10 +20,31 @@ public class Action {
         this.direction = direction;
     }
 
-    public String getEntityType() { return entityType; }
-    public int getOldX() { return oldX; }
-    public int getOldY() { return oldY; }
-    public int getNewX() { return newX; }
-    public int getNewY() { return newY; }
-    public String getDirection() { return direction; }
+    public Action deepCopy() {
+        return new Action(oldX, oldY, newX, newY, entityType, direction);
+    }
+
+    public String getEntityType() {
+        return entityType;
+    }
+
+    public int getOldX() {
+        return oldX;
+    }
+
+    public int getOldY() {
+        return oldY;
+    }
+
+    public int getNewX() {
+        return newX;
+    }
+
+    public int getNewY() {
+        return newY;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
 }
