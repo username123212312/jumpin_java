@@ -1,4 +1,4 @@
-
+package org.example;
 
 public class Hole extends Entity {
     private Rabbit occupant; 
