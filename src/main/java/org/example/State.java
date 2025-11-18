@@ -6,18 +6,10 @@ import java.util.Objects;
 
 public class State {
 
-    private Square[][] board;
+    private final Square[][] board;
 
     public State(Square[][] board) {
-        this.board = new Square[5][5];
-
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                Entity oldEntity = board[i][j].getEntity();
-                Entity newEntity = copyEntity(oldEntity);
-                this.board[i][j] = new Square(i, j, newEntity);
-            }
-        }
+        this.board = board;
     }
 
     public State deepCopy() {
@@ -93,7 +85,10 @@ public class State {
     public void printBoard() {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
+
                 System.out.print(board[i][j].toString() + " ");
+
+
             }
             System.out.println();
         }
